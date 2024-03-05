@@ -1,5 +1,5 @@
 import numpy as np
-
+import Methods as mth
 def manager(c, A, b, A_signs, min_max, x_signs):
     M1, M2, N1, N2 = [], [], [], []
 
@@ -86,14 +86,16 @@ def common_to_canonical_calc_b(b, M1, M2):
     return np.array(b_new, float)
 
 if __name__ == '__main__':
-    A = [[2, 1, 3, 3, -1], [1, 2, 2, -2, -3], [3, 1, 1, 12, 3], [1, 1, 1, -2, -5], [1, 3, 1, 6, 8]]
-    b = [24, 4, -3, 12, 8]
-    c = [5, 6, 4, 1, 2, 0]  # the last is free coefficient
+    A = [[2, 1, -1, 3, -1], [-4, 2, 5, -2, -3], [3, 2, -1, 1, 3], [1, 4, 7, -2, -5], [-7, 3, 2, 6, 8]]
+    b = [10, 9, 59, 2, 15]
+    c = [1, 2, 1, 2, 2, 0]  # the last is free coefficient
 
-    A_signs_tmp = ['=', '=', '=', '<=', '>=']
-    x_signs_tmp = [0, 1, 2]
+    A_signs_tmp = ['=', '=', '=', '>=', '<=']
+    x_signs_tmp = [0, 1, 2, 3]
     min_max_tmp = 'min'
+
     M1, M2, N1, N2, min_max_new = manager(c, A, b, A_signs_tmp, min_max_tmp, x_signs_tmp)
 
     c_new, A_new, b_new, new_asigns, new_xsigns = common_to_canonical(c, A, b, M1, M2, N1, N2, A_signs_tmp)
-    brp = 0
+    gmp = mth.calc_global_minimum_point(c_new, A_new, b_new)
+    bst = 0
